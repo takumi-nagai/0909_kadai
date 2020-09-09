@@ -1,0 +1,229 @@
+body{
+    margin:0;
+    padding:0;
+    text-align:left;
+    font-size: 10px;
+    width:100%;
+    font-family:"ヒラギノ角ゴシック体 W1" ;
+}
+header{
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    position: fixed;
+    top:0px;
+    left:0px;
+    margin: 0;
+     width: 100%;
+     z-index: 100;
+}
+
+h1{
+    font-size: 30px;
+    font-weight: normal;
+}
+main{
+    top:80px;
+    left:0px;
+    width:100%;
+    display: block;
+    border-bottom:1px solid #ccc;
+    position:relative;
+}
+footer{
+    top: 80px;
+    position: relative;
+    background-color: #fff;
+    border-bottom:1px solid #ccc;
+    text-align: center;
+    font-size:15px;
+}
+p{
+    font-size:20px;
+    text-align: left;
+    border-bottom:1px solid #fff;
+    height: 30px; 
+ 
+}
+ul{
+    padding: 0;
+    border:white;
+    display:table;  /* 定義 */
+    table-layout: fixed;
+    width:80%;
+    font-size: 80%;
+    margin:30px auto;
+    text-align: center;
+    border-radius: 30%;
+}
+
+li{
+    list-style-type:none;
+    border: none;
+    background-color: #6075ec;
+    display:table-cell;  /* 定義 */
+    cursor: pointer;
+    color:#fff;
+    font-size:20px;
+    padding:5px;
+}
+
+li:hover{
+    background:#fff;
+    color:#6075ec;
+}
+
+textarea{
+  margin: 10px 3%;
+  width: 92%;
+  height: 100px;
+  font-size:18px;
+  box-shadow: 1px #555;
+  background-color:rgb(241, 239, 239);
+}
+
+#key{
+    margin:0 3%;
+    width: 92%;
+    font-size:18px;
+    background-color: rgb(241, 239, 239);
+    box-shadow: 1px #555;
+}
+
+th{
+   
+    font-size:18px;
+    background-color:#d0e7fc;
+    border-bottom: 1px solid #8dc3f5;
+    text-align: center;
+    font-weight: normal;
+}
+td{
+    font-size:16px;
+    background-color: #fff;
+    border-bottom: 1px solid #8dc3f5;
+}
+
+table tr:nth-child(odd) td {
+	background: rgba(230, 227, 227, 0.329);
+}
+
+
+table{
+    top:80px;
+    position: relative;
+    margin: 20px 3%;
+    border:1px solid #8dc3f5;
+    width:96%;
+    counter-reset: rowCount -1;
+  }
+table tr{
+    counter-increment: rowCount;
+  }
+table tr td:first-child::before{
+    content: counter(rowCount);
+  }
+
+#list{
+    font-size:10px;
+    margin:20px auto;
+    width:80%
+}
+
+.th1{
+    width: 40px;
+    text-align: center;
+}
+
+.check{
+    width:100px;
+    text-align: center;
+}
+
+.form{
+    width:80%;
+    margin:0 auto;
+
+}
+
+.form_title{
+    font-size:20px;
+    text-align: center;
+    border-bottom:1px solid #fff;
+    height: 40px; 
+    line-height: 40px;
+    margin-left: 100px;
+    background-color: rgb(255, 0, 0);
+    color:#fff;  
+    width:150px;
+}
+.todo_title{
+    top:80px;
+    position: relative;
+    font-size:20px;
+    text-align: center;
+    border-bottom:1px solid #fff;
+    height: 40px; 
+    line-height: 40px;
+    margin-left: 100px;  
+    background-color: rgb(255, 0, 0);
+    color:#fff;
+    width:150px;
+}
+
+.td1{
+    width:150px;
+    text-align: center;
+}
+
+.date1{
+    width: 180px;
+}
+.date2{
+    width: 120px;
+}
+
+.ttl{
+    widows: 300px;
+}
+
+.cl{
+    width:1100px;
+    margin:0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cl1{
+    width: 198px;
+    background:#fff;
+    padding: 5px 0;
+    font-size: 18px;
+    text-align: center;
+    border-right:1px solid rgb(192, 187, 187);
+    border-bottom:1px solid rgb(192, 187, 187);
+    border-top:1px solid rgb(192, 187, 187);
+    line-height: center;
+
+}
+.cl2{
+    width: 898px;
+    background:#fff;
+    padding: 5px 0;
+    font-size: 18px;
+    text-align: left;
+    border:1px solid #fff;
+    line-height: center;
+    border-bottom:1px solid rgb(192, 187, 187);
+    border-top:1px solid rgb(192, 187, 187);
+}
+
+#view{
+    padding: 0 0 0 30px;
+}
+
+#date2{
+    margin:0 0  0 30px; 
+    width:200px;
+    background-color:rgb(241, 239, 239);
+}

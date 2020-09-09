@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>myMemoPad</title>
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+</head>
+<body>
+<header>
+<h1 >やることリスト</h1>
+</header>
+<main>
+    <p class="form_title">入力フォーム</p>
+    <div class="cl">
+        <div class="cl1">入  力  日</div>
+        <div class="cl2"><div id="view"></div></div>
+    </div>
+    <div class="cl">
+        <div class="cl1">タイトル</div>
+        <div class="cl2"><input type=text id="key"></div>
+    </div>
+    <div class="cl">
+        <div class="cl1">内　　容</div>
+        <div class="cl2"><textarea id="memo"></textarea></div>
+    </div>
+    <div class="cl">
+        <div class="cl1">締　　切</div>
+        <div class="cl2"><input id ="date2" name="date" type="date" /></div>
+    </div>
+
+
+   <ul>
+        <li id="add">保存</li>
+        <li id="delete">削除</li>
+        <li id="off">選び直し</li>
+        <li id="save">ランダム追加</li>
+        <li id="clear">全消去</li>  
+    </ul>
+
+</main>
+<!-- ローカルストレージのKey -->
+<!-- <select id="del_item"></select> -->
+<p class="todo_title">やること一覧</p>
+    <table id="list">
+        <tr>
+            <th class="th1"></th>
+            <th class="date1">入 力 日</th>
+            <th class="ttl">タイトル</th>
+            <th>内　　容</th>
+            <th class="date2">締　　切</th>
+            <th class="check">check</th>
+        </tr>
+      </table>
+
+<footer><small>G's</small></footer>
+
+<script>
+// 入力日時の自動入力
+//曜日配列
+let eMonth = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+let week   = ["日", "月", "火", "水", "木", "金", "土"];
+
+//日時取得
+let now = new Date();            //日付取得準備（必須）！！
+let year = now.getFullYear();    //年
+let month = ("0"+(now.getMonth() + 1)).slice(-2);  //月+１を足す
+let date = ("0"+now.getDate()).slice(-2);        //日
+let day = now.getDay();          //曜日（数値）
+let h = ("0"+(now.getHours())).slice(-2) ;          //時
+let m = ("0"+(now.getMinutes())).slice(-2);        //分
+
+// let month1 = if(length(now.getMonth())==1){
+//     "0" + now.getMonth() + 1;
+// } else{
+//     now.getMonth()+1;
+// };  //月+１を足す
+// let date1 = if(length(now.getDate())==1){
+//     "0" + now.getDate();
+// } else{
+//     now.getDate();
+// };
+
+//日時表示文字列の作成
+let str = year + "-" + month + "-" + date + "(" + week[day] + ") " + h + ":" + m ;
+let str1 = year + "-" + month + "-" + date;
+
+console.log(str);
+
+//div要素id属性mainを指定
+
+$('#view').html(str);
+
+//1.Save クリックイベント
+$("#add").on("click",function(){
+    const key = $("#key").val();
+    const content = $("#memo").val();
+    const date2 = $("#date2").val();
+    const json =  {memo:content,date1:str,date2:date2}; 
+    const memo = JSON.stringify(json);
+    localStorage.setItem(key,memo);
+    location.reload();
+})
+
+// 乱数の追加
+$("#save").on("click",function(){
+    for(let i =0; i<100;i++){
+        const key =  Math.ceil(Math.random()*100000);
+        const memo =  Math.ceil(Math.random()*1000000);
+        localStorage.setItem(key,memo);
+        location.reload();
+}})
+
+// 2.clear クリックイベント
+$("#clear").on("click",function(){
+    res = confirm("本当に全消去しますか");
+    if(res == true){
+        localStorage.clear();
+        $('#list').empty();
+    } else {
+        alert("削除しますん。"); 
+    }
+
+})
+
+//3.ページ読み込み：保存データ取得表示
+for(let i =0; i< localStorage.length;i++){
+    const key = localStorage.key(i);
+    const memo1 = localStorage.getItem(key)
+    const d = JSON.parse(memo1);
+    const html = '<tr><td></td><td>'+d.date1+'</td><td>'+key+'</td><td>'+d.memo+'</td><td>'+d.date2+'</td><td><button type=“button”>やったよ！</button></td></tr>';
+    $("#list").append(html);
+    if(str1 == d.date2){
+        alert(key+"を今日やらなきゃ！");
+    }
+}
+
+// 削除するキーの指定
+let key_item = "";
+    for(let i =0; i< localStorage.length;i++){
+        const key = localStorage.key(i);
+        key_item += '<option value="'+key+'">'+key+'</option>';
+        $("#del_item").html(key_item);
+}
+
+// 削除するデータの実行
+// $("#delete").on("click",function(){
+//     const del_item = $("#del_item").val();
+//     localStorage.removeItem(del_item);
+//     location.reload();
+//     if(localStorage.length === 0){
+//         alert("保存しているメモはありません");
+//     }
+// })
+
+$(function() {
+    $('tr').click(function() {
+        $(this).css('color','red');
+        $(this).css('text-decoration','line-through');
+            const del_item = $('tr').index(this);
+            const key_name = localStorage.key(del_item-1);
+            const get1 = localStorage.getItem(key_name);
+
+    $("#delete").on("click",function(){
+        res = confirm("本当に削除して良いですか。");
+        if(res == true){
+           localStorage.removeItem(key_name); 
+           location.reload();
+        } else {
+            alert("削除しますん。")
+        }
+        
+        
+    })
+ });
+});
+
+$(function(){
+ $("#off").click(function(){
+    $('tr').off();
+    location.reload();
+    })   
+})
+
+</script>
+
+</body>
+</html>
